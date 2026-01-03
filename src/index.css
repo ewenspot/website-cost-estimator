@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  transition: all 0.2s;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: theme("fontFamily.heading");
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+/* Apply body font to all paragraphs, labels, buttons, inputs */
+body,
+p,
+label,
+button,
+input,
+textarea {
+  font-family: theme("fontFamily.body");
+}
+
+.h1 {
+  font-family: theme("fontFamily.heading");
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #030213;
+    --surface: #ffffff;
+    --muted: #717182;
+    --border: rgba(0, 0, 0, 0.1);
+  }
+
+  .dark {
+    --background: #030213;
+    --foreground: #ffffff;
+    --surface: #10101a; /* Slightly lighter than background for cards */
+    --muted: #a1a1aa;
+    --border: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}
