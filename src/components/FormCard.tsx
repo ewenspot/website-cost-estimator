@@ -1,14 +1,14 @@
-import { Calculator } from 'lucide-react';
-import { Dropdown } from './Dropdown';
-import { Checkbox } from './Checkbox';
+import { Calculator } from "lucide-react";
+import { Dropdown } from "./Dropdown";
+import { Checkbox } from "./Checkbox";
 
 interface FormCardProps {
-  websiteType: 'landing' | 'business' | 'ecommerce';
-  setWebsiteType: (type: 'landing' | 'business' | 'ecommerce') => void;
-  designComplexity: 'basic' | 'standard' | 'premium';
-  setDesignComplexity: (complexity: 'basic' | 'standard' | 'premium') => void;
-  urgency: 'standard' | 'fast' | 'rush';
-  setUrgency: (urgency: 'standard' | 'fast' | 'rush') => void;
+  websiteType: "landing" | "business" | "ecommerce";
+  setWebsiteType: (type: "landing" | "business" | "ecommerce") => void;
+  designComplexity: "basic" | "standard" | "premium";
+  setDesignComplexity: (complexity: "basic" | "standard" | "premium") => void;
+  urgency: "standard" | "fast" | "rush";
+  setUrgency: (urgency: "standard" | "fast" | "rush") => void;
   customPages: number;
   setCustomPages: (pages: number) => void;
   features: {
@@ -21,6 +21,7 @@ interface FormCardProps {
   };
   setFeatures: (features: any) => void;
   onCalculate: () => void;
+  calculated: boolean;
 }
 
 export function FormCard({
@@ -35,27 +36,32 @@ export function FormCard({
   features,
   setFeatures,
   onCalculate,
+  calculated,
 }: FormCardProps) {
   const websiteTypeOptions = [
-    { value: 'landing', label: 'Landing Page' },
-    { value: 'business', label: 'Business Website' },
-    { value: 'ecommerce', label: 'E-Commerce Site' },
+    { value: "landing", label: "Landing Page" },
+    { value: "business", label: "Business Website" },
+    { value: "ecommerce", label: "E-Commerce Site" },
   ];
 
   const designOptions = [
-    { value: 'basic', label: 'Basic' },
-    { value: 'standard', label: 'Standard' },
-    { value: 'premium', label: 'Premium' },
+    { value: "basic", label: "Basic" },
+    { value: "standard", label: "Standard" },
+    { value: "premium", label: "Premium" },
   ];
 
   const urgencyOptions = [
-    { value: 'standard', label: 'Standard (No rush)' },
-    { value: 'fast', label: 'Fast (+15%)' },
-    { value: 'rush', label: 'Rush (+35%)' },
+    { value: "standard", label: "Standard (No rush)" },
+    { value: "fast", label: "Fast (+15%)" },
+    { value: "rush", label: "Rush (+35%)" },
   ];
 
   return (
-    <div className="bg-[#111111] border border-[#1f1f1f] rounded-xl p-6 lg:sticky lg:top-6">
+    <div
+      className={`bg-[#111111] border border-[#1f1f1f] ${
+        calculated ? "" : "md:min-w-[800px]"
+      } rounded-xl p-6 lg:sticky lg:top-6`}
+    >
       <h2 className="font-semibold mb-6">Project Details</h2>
 
       <div className="space-y-5">
@@ -85,7 +91,9 @@ export function FormCard({
 
         {/* Custom Pages */}
         <div>
-          <label className="block text-sm font-medium mb-2">Number of Pages</label>
+          <label className="block text-sm font-medium mb-2">
+            Number of Pages
+          </label>
           <input
             type="number"
             min="1"
@@ -94,49 +102,67 @@ export function FormCard({
             onChange={(e) => setCustomPages(parseInt(e.target.value) || 1)}
             className="w-full bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg px-4 py-2.5 text-[#e6e6e6] focus:outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9] transition-colors"
           />
-          <p className="text-xs text-[#9ca3af] mt-1.5">Additional pages cost $25 each</p>
+          <p className="text-xs text-[#9ca3af] mt-1.5">
+            Additional pages cost $25 each
+          </p>
         </div>
 
         {/* Features */}
         <div>
-          <label className="block text-sm font-medium mb-3">Additional Features</label>
+          <label className="block text-sm font-medium mb-3">
+            Additional Features
+          </label>
           <div className="space-y-2.5">
             <Checkbox
               label="Contact Form (+$100)"
               checked={features.contactForm}
-              onChange={(checked) => setFeatures({ ...features, contactForm: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, contactForm: checked })
+              }
             />
             <Checkbox
               label="E-Commerce Module (+$400)"
               checked={features.ecommerce}
-              onChange={(checked) => setFeatures({ ...features, ecommerce: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, ecommerce: checked })
+              }
             />
             <Checkbox
               label="Admin Dashboard (+$600)"
               checked={features.adminDashboard}
-              onChange={(checked) => setFeatures({ ...features, adminDashboard: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, adminDashboard: checked })
+              }
             />
             <Checkbox
               label="User Authentication (+$200)"
               checked={features.auth}
-              onChange={(checked) => setFeatures({ ...features, auth: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, auth: checked })
+              }
             />
             <Checkbox
               label="Payment Integration (+$300)"
               checked={features.payment}
-              onChange={(checked) => setFeatures({ ...features, payment: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, payment: checked })
+              }
             />
             <Checkbox
               label="API Integration (+$200)"
               checked={features.apiIntegration}
-              onChange={(checked) => setFeatures({ ...features, apiIntegration: checked })}
+              onChange={(checked) =>
+                setFeatures({ ...features, apiIntegration: checked })
+              }
             />
           </div>
         </div>
 
         {/* Timeline Urgency */}
         <div>
-          <label className="block text-sm font-medium mb-2">Timeline Urgency</label>
+          <label className="block text-sm font-medium mb-2">
+            Timeline Urgency
+          </label>
           <Dropdown
             value={urgency}
             onChange={(value) => setUrgency(value as any)}

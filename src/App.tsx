@@ -3,6 +3,8 @@ import { Calculator, Mail, CircleAlert } from "lucide-react";
 import { FormCard } from "./components/FormCard";
 import { ResultCard } from "./components/ResultCard";
 import { CurrencyToggle } from "./components/CurrencyToggle";
+import { motion } from "framer-motion";
+import { fadeIn } from "./utils/motion";
 
 export default function App() {
   const [currency, setCurrency] = useState<"USD" | "ETB">("USD");
@@ -106,14 +108,11 @@ export default function App() {
       {/* Header */}
       <header className="border-b border-[#1f1f1f] bg-[#111111]">
         <div className="max-w-[1400px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-start justify-between gap-4">
-          <div>
+          <div className="flex flex-row gap-4">
+            <Calculator className="w-6 h-6 text-[#0ea5e9]" />
             <div className="flex items-center gap-2.5">
-              <Calculator className="w-6 h-6 text-[#0ea5e9]" />
               <h1 className="font-semibold">Website Cost Estimator</h1>
             </div>
-            <p className="text-sm text-[#9ca3af] mt-1">
-              Get instant pricing for your web project
-            </p>
           </div>
 
           <CurrencyToggle
@@ -127,34 +126,47 @@ export default function App() {
 
       {/* Main Content */}
       <main className="max-w-[1400px] mx-auto px-6 py-8 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 lg:gap-8 items-start">
+        <div
+          className={`${
+            calculated
+              ? "grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6"
+              : "flex justify-center items-center w-full"
+          } lg:gap-8 items-start`}
+        >
           {/* Form Card */}
-          <FormCard
-            websiteType={websiteType}
-            setWebsiteType={setWebsiteType}
-            designComplexity={designComplexity}
-            setDesignComplexity={setDesignComplexity}
-            urgency={urgency}
-            setUrgency={setUrgency}
-            customPages={customPages}
-            setCustomPages={setCustomPages}
-            features={features}
-            setFeatures={setFeatures}
-            onCalculate={handleCalculate}
-          />
+          <motion.div variants={fadeIn("left", "spring", 0.6, 0.75)}>
+            <FormCard
+              websiteType={websiteType}
+              calculated={calculated}
+              setWebsiteType={setWebsiteType}
+              designComplexity={designComplexity}
+              setDesignComplexity={setDesignComplexity}
+              urgency={urgency}
+              setUrgency={setUrgency}
+              customPages={customPages}
+              setCustomPages={setCustomPages}
+              features={features}
+              setFeatures={setFeatures}
+              onCalculate={handleCalculate}
+            />
+          </motion.div>
 
           {/* Result Card */}
-          <ResultCard
-            calculated={calculated}
-            totalDisplay={totalDisplay}
-            currency={currency}
-            timelineWeeks={timelineWeeks}
-            timelineDays={timelineDays}
-            breakdown={breakdown}
-            websiteType={websiteType}
-            designComplexity={designComplexity}
-            features={features}
-          />
+          {calculated && (
+            <motion.div variants={fadeIn("right", "spring", 0.6, 0.75)}>
+              <ResultCard
+                calculated={calculated}
+                totalDisplay={totalDisplay}
+                currency={currency}
+                timelineWeeks={timelineWeeks}
+                timelineDays={timelineDays}
+                breakdown={breakdown}
+                websiteType={websiteType}
+                designComplexity={designComplexity}
+                features={features}
+              />
+            </motion.div>
+          )}
         </div>
       </main>
 
