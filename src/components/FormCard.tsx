@@ -58,7 +58,7 @@ export function FormCard({
 
   return (
     <div
-      className={`bg-[#111111] border border-[#1f1f1f] ${
+      className={`backdrop-blur-2xl border border-[#9494948a] ${
         calculated ? "" : "md:min-w-[800px]"
       } rounded-xl p-6 lg:sticky lg:top-6`}
     >

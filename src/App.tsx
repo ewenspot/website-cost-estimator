@@ -5,6 +5,7 @@ import { ResultCard } from "./components/ResultCard";
 import { CurrencyToggle } from "./components/CurrencyToggle";
 import { motion } from "framer-motion";
 import { fadeIn } from "./utils/motion";
+import Hero from "./components/Hero";
 
 export default function App() {
   const [currency, setCurrency] = useState<"USD" | "ETB">("USD");
@@ -104,10 +105,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#e6e6e6]">
+    <div className="min-h-screen  text-[#e6e6e6]">
+      <div
+        style={{
+          backgroundImage: `url(/estimator-background.png)`,
+          backgroundAttachment: "fixed", // This creates the "locked" feel
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          filter: "blur(0.4px)", // Your requested blur
+        }}
+        className="absolute inset-0 w-full h-full z-[-5]"
+      />
       {/* Header */}
-      <header className="border-b border-[#1f1f1f] bg-[#111111]">
-        <div className="max-w-[1400px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-start justify-between gap-4">
+      <header className="w-full">
+        <div className="w-full mx-auto px-6 py-3 flex flex-col sm:flex-row items-start sm:items-start justify-between gap-4">
           <div className="flex flex-row gap-4">
             <Calculator className="w-6 h-6 text-[#0ea5e9]" />
             <div className="flex items-center gap-2.5">
@@ -124,6 +136,7 @@ export default function App() {
         </div>
       </header>
 
+      <Hero />
       {/* Main Content */}
       <main className="max-w-[1400px] mx-auto px-6 py-8 md:py-12">
         <div
