@@ -1,6 +1,8 @@
 import { FileDown, Mail, Copy, Check } from "lucide-react";
 import { useState } from "react";
 import { StackTag } from "./StackTag";
+import { generatePdf } from "../utils/generatePDF";
+import { ScrollReveal } from "./ui/ScrollReveal";
 
 interface ResultCardProps {
   calculated: boolean;
@@ -66,10 +68,23 @@ export function ResultCard({
     return stacks;
   };
 
+  const handleDownloadPdf = () => {
+    generatePdf({
+      total: totalDisplay,
+      currency,
+      timelineWeeks,
+      websiteType,
+      designComplexity,
+      features,
+    });
+  };
+
   const recommendedStack = getRecommendedStack();
 
   return (
-    <div
+    <ScrollReveal
+      direction="right_to_left"
+      delay={100}
       id="result-card"
       className={`backdrop-blur-2xl border border-[#9494948a] rounded-xl p-6 lg:p-8 transition-all duration-500 ${
         calculated ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0"
@@ -178,7 +193,10 @@ export function ResultCard({
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-3">
-        <button className="flex-1 bg-[#8b5cf6] hover:bg-[#7c3aed] active:bg-[#6d28d9] text-white font-medium py-3 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.25)] hover:shadow-[0_0_25px_rgba(139,92,246,0.35)]">
+        <button
+          onClick={handleDownloadPdf}
+          className="flex-1 bg-[#8b5cf6] hover:bg-[#7c3aed] active:bg-[#6d28d9] text-white font-medium py-3 px-5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.25)] hover:shadow-[0_0_25px_rgba(139,92,246,0.35)]"
+        >
           <FileDown className="w-4 h-4" />
           Download PDF
         </button>
@@ -187,6 +205,6 @@ export function ResultCard({
           Contact Me
         </button>
       </div>
-    </div>
+    </ScrollReveal>
   );
 }

@@ -6,6 +6,7 @@ import { CurrencyToggle } from "./components/CurrencyToggle";
 import { motion } from "framer-motion";
 import { fadeIn } from "./utils/motion";
 import Hero from "./components/Hero";
+import { ScrollReveal } from "./components/ui/ScrollReveal";
 
 export default function App() {
   const [currency, setCurrency] = useState<"USD" | "ETB">("USD");
@@ -85,14 +86,20 @@ export default function App() {
       setTimeout(() => setShowToast(false), 4000);
     }
 
-    // Scroll to result on mobile
-    if (window.innerWidth < 768) {
-      setTimeout(() => {
-        document
-          .getElementById("result-card")
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
-    }
+    // Use a timeout to ensure React has rendered the result-card before scrolling
+    setTimeout(() => {
+      const resultElement = document.getElementById("result-card");
+
+      if (resultElement) {
+        if (window.innerWidth >= 1024) {
+          // Desktop: Scroll so the card is centered in the screen
+          resultElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          // Tablet & Mobile: Scroll to the top of the card
+          resultElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }, 100);
   };
 
   const breakdown = {
@@ -108,12 +115,12 @@ export default function App() {
     <div className="min-h-screen  text-[#e6e6e6]">
       <div
         style={{
-          backgroundImage: `url(/estimator-background.png)`,
-          backgroundAttachment: "fixed", // This creates the "locked" feel
+          backgroundImage: `url(/estimator-background.jpg)`,
+          backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          filter: "blur(0.4px)", // Your requested blur
+          filter: "blur(0.2px)",
         }}
         className="absolute inset-0 w-full h-full z-[-5]"
       />
@@ -147,38 +154,34 @@ export default function App() {
           } lg:gap-8 items-start`}
         >
           {/* Form Card */}
-          <motion.div variants={fadeIn("left", "spring", 0.6, 0.75)}>
-            <FormCard
-              websiteType={websiteType}
-              calculated={calculated}
-              setWebsiteType={setWebsiteType}
-              designComplexity={designComplexity}
-              setDesignComplexity={setDesignComplexity}
-              urgency={urgency}
-              setUrgency={setUrgency}
-              customPages={customPages}
-              setCustomPages={setCustomPages}
-              features={features}
-              setFeatures={setFeatures}
-              onCalculate={handleCalculate}
-            />
-          </motion.div>
+          <FormCard
+            websiteType={websiteType}
+            calculated={calculated}
+            setWebsiteType={setWebsiteType}
+            designComplexity={designComplexity}
+            setDesignComplexity={setDesignComplexity}
+            urgency={urgency}
+            setUrgency={setUrgency}
+            customPages={customPages}
+            setCustomPages={setCustomPages}
+            features={features}
+            setFeatures={setFeatures}
+            onCalculate={handleCalculate}
+          />
 
           {/* Result Card */}
           {calculated && (
-            <motion.div variants={fadeIn("right", "spring", 0.6, 0.75)}>
-              <ResultCard
-                calculated={calculated}
-                totalDisplay={totalDisplay}
-                currency={currency}
-                timelineWeeks={timelineWeeks}
-                timelineDays={timelineDays}
-                breakdown={breakdown}
-                websiteType={websiteType}
-                designComplexity={designComplexity}
-                features={features}
-              />
-            </motion.div>
+            <ResultCard
+              calculated={calculated}
+              totalDisplay={totalDisplay}
+              currency={currency}
+              timelineWeeks={timelineWeeks}
+              timelineDays={timelineDays}
+              breakdown={breakdown}
+              websiteType={websiteType}
+              designComplexity={designComplexity}
+              features={features}
+            />
           )}
         </div>
       </main>

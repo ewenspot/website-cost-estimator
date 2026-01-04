@@ -8,6 +8,7 @@ html {
   height: 100%;
   overflow-x: hidden;
   transition: all 0.2s ease;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -67,4 +68,45 @@ textarea {
   body {
     @apply bg-background text-foreground transition-all duration-300 ease-in-out;
   }
+}
+
+.reveal-to-top {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out,
+    filter 0.45s ease-out;
+  transform: translateY(30px);
+  filter: blur(10px);
+}
+.reveal-to-top-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Existing Right to Left (Starts on Right) */
+.reveal-to-left {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out,
+    filter 0.45s ease-out;
+  transform: translateX(100px);
+  filter: blur(4px);
+}
+.reveal-to-left-visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0px);
+}
+
+/* NEW: Left to Right (Starts on Left) */
+.reveal-to-right {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out,
+    filter 0.45s ease-out;
+  transform: translateX(-100px); /* Starts 100px to the left */
+  filter: blur(4px);
+}
+.reveal-to-right-visible {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0px);
 }

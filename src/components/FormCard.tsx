@@ -1,6 +1,7 @@
 import { Calculator } from "lucide-react";
 import { Dropdown } from "./Dropdown";
 import { Checkbox } from "./Checkbox";
+import { ScrollReveal } from "./ui/ScrollReveal";
 
 interface FormCardProps {
   websiteType: "landing" | "business" | "ecommerce";
@@ -57,9 +58,11 @@ export function FormCard({
   ];
 
   return (
-    <div
+    <ScrollReveal
+      direction="bottom_to_top"
+      delay={170}
       className={`backdrop-blur-2xl border border-[#9494948a] ${
-        calculated ? "" : "md:min-w-[800px]"
+        calculated ? "" : "md:max-w-[800px] w-full mx-6"
       } rounded-xl p-6 lg:sticky lg:top-6`}
     >
       <h2 className="font-semibold mb-6">Project Details</h2>
@@ -99,7 +102,7 @@ export function FormCard({
             min="1"
             max="100"
             value={customPages}
-            onChange={(e) => setCustomPages(parseInt(e.target.value) || 1)}
+            onChange={(e) => setCustomPages(parseInt(e.target.value))}
             className="w-full bg-[#0a0a0a] border border-[#1f1f1f] rounded-lg px-4 py-2.5 text-[#e6e6e6] focus:outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9] transition-colors"
           />
           <p className="text-xs text-[#9ca3af] mt-1.5">
@@ -179,6 +182,6 @@ export function FormCard({
           Calculate Cost
         </button>
       </div>
-    </div>
+    </ScrollReveal>
   );
 }
