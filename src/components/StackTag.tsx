@@ -1,4 +1,4 @@
-import { Code, Palette, Zap, Lock, CreditCard, Database } from 'lucide-react';
+import { Code, Palette, Zap, CreditCard, Database } from "lucide-react";
 
 interface StackTagProps {
   name: string;
@@ -6,11 +6,11 @@ interface StackTagProps {
 
 const iconMap: Record<string, any> = {
   React: Code,
-  'Next.js': Zap,
-  'Tailwind CSS': Palette,
+  "Next.js": Zap,
+  "Tailwind CSS": Palette,
   Firebase: Database,
   Stripe: CreditCard,
-  'Framer Motion': Zap,
+  "Framer Motion": Zap,
 };
 
 export function StackTag({ name }: StackTagProps) {
