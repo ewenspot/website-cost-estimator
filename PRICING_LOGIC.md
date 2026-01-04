@@ -5,15 +5,17 @@ This document outlines the complete pricing calculation logic used in the Websit
 ## Pricing Variables (USD Base)
 
 ### Base Prices by Website Type
+
 ```javascript
 const basePrices = {
-  landing: 300,      // Landing page
-  business: 800,     // Business website
-  ecommerce: 2500    // E-commerce site
+  landing: 300, // Landing page
+  business: 800, // Business website
+  ecommerce: 2500, // E-commerce site
 };
 ```
 
 ### Feature Costs
+
 ```javascript
 const featureCosts = {
   contactForm: 100,
@@ -21,42 +23,46 @@ const featureCosts = {
   adminDashboard: 600,
   auth: 200,
   payment: 300,
-  apiIntegration: 200
+  apiIntegration: 200,
 };
 ```
 
 ### Design Complexity Multipliers
+
 ```javascript
 const designMultiplier = {
-  basic: 0.9,      // 10% discount
-  standard: 1.0,   // No change
-  premium: 1.4     // 40% premium
+  basic: 0.9, // 10% discount
+  standard: 1.0, // No change
+  premium: 1.4, // 40% premium
 };
 ```
 
 ### Timeline Urgency Multipliers
+
 ```javascript
 const urgencyMultiplier = {
-  standard: 1.0,   // No rush
-  fast: 1.15,      // +15%
-  rush: 1.35       // +35%
+  standard: 1.0, // No rush
+  fast: 1.15, // +15%
+  rush: 1.35, // +35%
 };
 ```
 
 ### Additional Page Pricing
+
 ```javascript
-const pagesCostPerPage = 25;  // USD per extra page beyond base
+const pagesCostPerPage = 25; // USD per extra page beyond base
 
 const basePagesForType = {
   landing: 1,
   business: 5,
-  ecommerce: 8
+  ecommerce: 8,
 };
 ```
 
 ## Calculation Formula
 
 ### Step 1: Calculate Base + Features + Pages
+
 ```javascript
 base = basePrices[selectedType]
 featuresTotal = sum(featureCosts for each checked feature)
@@ -65,49 +71,56 @@ pagesTotal = extraPages * pagesCostPerPage
 ```
 
 ### Step 2: Apply Design Multiplier
+
 ```javascript
-subtotalUSD = (base + featuresTotal + pagesTotal) * designMultiplier[selectedDesign]
+subtotalUSD =
+  (base + featuresTotal + pagesTotal) * designMultiplier[selectedDesign];
 ```
 
 ### Step 3: Apply Urgency Multiplier
+
 ```javascript
-totalUSD = subtotalUSD * urgencyMultiplier[selectedUrgency]
+totalUSD = subtotalUSD * urgencyMultiplier[selectedUrgency];
 ```
 
 ### Step 4: Currency Conversion (if ETB selected)
+
 ```javascript
 if (currency === "ETB") {
-  totalDisplay = totalUSD * exchangeRate
+  totalDisplay = totalUSD * exchangeRate;
 } else {
-  totalDisplay = totalUSD
+  totalDisplay = totalUSD;
 }
 ```
 
 ## Timeline Calculation
 
 ### Base Timeline by Type
+
 ```javascript
 const baseDaysForType = {
-  landing: 3,      // days
-  business: 10,    // days
-  ecommerce: 25    // days
+  landing: 3, // days
+  business: 10, // days
+  ecommerce: 25, // days
 };
 ```
 
 ### Design Complexity Extra Days
+
 ```javascript
 const designExtraDays = {
   basic: 0,
   standard: 3,
-  premium: 7
+  premium: 7,
 };
 ```
 
 ### Timeline Formula
+
 ```javascript
 checkedFeaturesCount = count of selected features
-timelineDays = baseDaysForType[selectedType] + 
-               (checkedFeaturesCount * 2) + 
+timelineDays = baseDaysForType[selectedType] +
+               (checkedFeaturesCount * 2) +
                designExtraDays[selectedDesign]
 
 timelineWeeks = ceil(timelineDays / 7)
@@ -116,6 +129,7 @@ timelineWeeks = ceil(timelineDays / 7)
 ## Example Calculation
 
 **Selected Options:**
+
 - Website Type: Business ($800)
 - Design: Premium (×1.4)
 - Pages: 8 (3 extra pages = $75)
@@ -124,6 +138,7 @@ timelineWeeks = ceil(timelineDays / 7)
 - Currency: ETB (rate: 120)
 
 **Calculation:**
+
 ```
 base = 800
 featuresTotal = 100 + 200 = 300
@@ -141,12 +156,12 @@ Timeline: 10 (base) + 4 (2 features × 2) + 7 (premium) = 21 days (3 weeks)
 The app automatically recommends tech stacks based on selections:
 
 - **Landing page**: React, Tailwind CSS
-- **Business site**: React, Tailwind CSS, Next.js
-- **E-commerce**: React, Next.js, Stripe
+- **Business site**: React, Tailwind CSS, Firebase
+- **E-commerce**: React, Firebase, Stripe
 - **With Auth/Admin**: + Firebase
 - **With E-commerce/Payment**: + Stripe
 - **Premium Design**: + Framer Motion
 
 ---
 
-*This pricing logic is implemented in `/src/app/App.tsx` and can be customized to match your specific pricing structure.*
+_This pricing logic is implemented in `/src/app/App.tsx` and can be customized to match your specific pricing structure._

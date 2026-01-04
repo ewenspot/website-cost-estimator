@@ -45,24 +45,33 @@ export function ResultCard({
   const getRecommendedStack = () => {
     const stacks = [];
 
+    // Core Framework logic based on your expertise
     if (websiteType === "landing") {
       stacks.push("React", "Tailwind CSS");
     } else if (websiteType === "business") {
-      stacks.push("React", "Tailwind CSS", "Next.js");
+      stacks.push("React", "Tailwind CSS", "Node.js");
     } else {
-      stacks.push("React", "Next.js", "Stripe");
+      // E-commerce or complex apps
+      stacks.push("React", "Node.js", "Firebase");
     }
 
+    // Feature-based logic
     if (features.auth || features.adminDashboard) {
-      stacks.push("Firebase");
+      if (!stacks.includes("Firebase")) stacks.push("Firebase");
     }
 
     if (features.ecommerce || features.payment) {
-      if (!stacks.includes("Stripe")) stacks.push("Stripe");
+      stacks.push("Stripe");
     }
 
+    // Design-based logic
     if (designComplexity === "premium") {
       stacks.push("Framer Motion");
+    }
+
+    // Logic for 3D/Interactive elements
+    if (designComplexity === "complex") {
+      stacks.push("Three.js");
     }
 
     return stacks;
@@ -200,10 +209,13 @@ export function ResultCard({
           <FileDown className="w-4 h-4" />
           Download PDF
         </button>
-        <button className="flex-1 border border-[#1f1f1f] hover:border-[#0ea5e9] hover:bg-[#0ea5e9]/10 text-[#e6e6e6] font-medium py-3 px-5 rounded-lg transition-colors flex items-center justify-center gap-2">
+        <a
+          href="mailto:aymenmeka92@gmail.com"
+          className="flex-1 border border-[#1f1f1f] hover:border-[#0ea5e9] hover:bg-[#0ea5e9]/10 text-[#e6e6e6] font-medium py-3 px-5 rounded-lg transition-colors flex items-center justify-center gap-2"
+        >
           <Mail className="w-4 h-4" />
           Contact Me
-        </button>
+        </a>
       </div>
     </ScrollReveal>
   );

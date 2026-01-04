@@ -3,10 +3,7 @@ import { Calculator, Mail, CircleAlert } from "lucide-react";
 import { FormCard } from "./components/FormCard";
 import { ResultCard } from "./components/ResultCard";
 import { CurrencyToggle } from "./components/CurrencyToggle";
-import { motion } from "framer-motion";
-import { fadeIn } from "./utils/motion";
 import Hero from "./components/Hero";
-import { ScrollReveal } from "./components/ui/ScrollReveal";
 
 export default function App() {
   const [currency, setCurrency] = useState<"USD" | "ETB">("USD");
@@ -196,7 +193,7 @@ export default function App() {
               specific requirements.
             </p>
             <a
-              href="mailto:contact@example.com"
+              href="mailto:aymenmeka92@gmail.com"
               className="flex items-center gap-2 text-[#0ea5e9] hover:text-[#38bdf8] transition-colors"
             >
               <Mail className="w-4 h-4" />
